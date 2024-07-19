@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.luizCovre.projetoCadastro.entities.Categoria;
 import com.luizCovre.projetoCadastro.entities.Pedido;
+import com.luizCovre.projetoCadastro.entities.Produto;
 import com.luizCovre.projetoCadastro.entities.Usuario;
 import com.luizCovre.projetoCadastro.entities.enums.StatusPedido;
 import com.luizCovre.projetoCadastro.repositories.CategoriaRepository;
 import com.luizCovre.projetoCadastro.repositories.PedidoRepository;
+import com.luizCovre.projetoCadastro.repositories.ProdutoRepository;
 import com.luizCovre.projetoCadastro.repositories.UsuarioRepository;
 
 @Configuration
@@ -28,6 +30,9 @@ public class TesteConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -35,7 +40,14 @@ public class TesteConfig implements CommandLineRunner {
 		Categoria categoria02 = new Categoria(null, "Bazar");
 		Categoria categoria03 = new Categoria(null, "Escritório");
 		
+		Produto produto01 = new Produto(null, "Notebook", "16Ram, SSD200GB", 3999.99, "/imagens/info");
+		Produto produto02 = new Produto(null, "Fichario", "20 divisórias", 89.99, "/imagens/bazar");
+		Produto produto03 = new Produto(null, "Cadeira", "regulagem de altura", 599.99, "/imagens/escritorio");
+		Produto produto04 = new Produto(null, "Mouse", "sem fio", 99.99, "/imagens/info");
+		Produto produto05 = new Produto(null, "Pacote sulfite", "200 folhas", 9.99, "/imagens/bazar");
+		
 		categoriaRepository.saveAll(Arrays.asList(categoria01, categoria02, categoria03));
+		produtoRepository.saveAll(Arrays.asList(produto01, produto02, produto03, produto04, produto05));
 		
 		Usuario usuario01 = new Usuario(null, "Luiz", "luiz.1covre@gmail.com", "999081085", "34154881876", "123456");
 		Usuario usuario02 = new Usuario(null, "Covre", "covre@yahoo.com.br", "954982347", "34674855888", "123456");
