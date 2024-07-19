@@ -29,4 +29,18 @@ public class UsuarioService {
 	public void delete(Long id) {
 		repositorio.deleteById(id);
 	}
+	
+	public Usuario update(Long id, Usuario obj) {
+		Usuario usuario = repositorio.getReferenceById(id);
+		updateDados(usuario, obj);
+		return repositorio.save(usuario);
+	}
+	
+	private void updateDados(Usuario usuario, Usuario obj) {
+		usuario.setNome(obj.getNome());
+		usuario.setEmail(obj.getEmail());
+		usuario.setCelular(obj.getCelular());
+		usuario.setCpf(obj.getCpf());
+	}
+	
 }
