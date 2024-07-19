@@ -11,6 +11,8 @@ import com.luizCovre.projetoCadastro.repositories.UsuarioRepository;
 import com.luizCovre.projetoCadastro.services.exceptions.DatabaseException;
 import com.luizCovre.projetoCadastro.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UsuarioService {
 
@@ -42,9 +44,14 @@ public class UsuarioService {
 	}
 	
 	public Usuario update(Long id, Usuario obj) {
-		Usuario usuario = repositorio.getReferenceById(id);
-		updateDados(usuario, obj);
-		return repositorio.save(usuario);
+		try {
+			Usuario usuario = repositorio.getReferenceById(id);
+			updateDados(usuario, obj);
+			return repositorio.save(usuario);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+		
 	}
 	
 	private void updateDados(Usuario usuario, Usuario obj) {
